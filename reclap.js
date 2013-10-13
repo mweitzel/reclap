@@ -19,6 +19,9 @@ reclap = (function(){
       window.history.pushState({rad:"shit"},"","#"+newState)
       private.followState()
     },
+    setResponder:function(callback){
+      private.notice = callback
+    }
   }
 
   var init = function(){
