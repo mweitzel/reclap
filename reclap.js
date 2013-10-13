@@ -1,12 +1,35 @@
 reclap = (function(){
-  var public = {}
 
-  public.getState = function(){
-    var state = window.location.hash
-    if( state[0] == '#' )
-      state = state.slice( 1 );
-    return state
+  var private = {
+    notice:function(stuff){console.log(stuff)},
+    followState:function(){
+      var state = public.getState()
+      private.notice(state)
+    }
   }
+
+  var public = {
+    getState:function(){
+      var state = window.location.hash
+      if( state[0] == '#' )
+        state = state.slice( 1 );
+      return state
+    },
+    pushState:function(newState){
+      window.history.pushState({rad:"shit"},"","#"+newState)
+      private.followState()
+    },
+    followState:function(){
+      
+    }
+  }
+
+  var init = function(){
+    window.addEventListener("popstate", function(a, b, c, d){
+      private.followState()
+    })
+  }
+  init()
 
   return public
 })()
